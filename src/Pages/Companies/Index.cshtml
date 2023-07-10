@@ -1,0 +1,64 @@
+﻿@page "/Companies/Index"
+@model ContosoCrafts.WebSite.Pages.Companies.IndexModel
+@{
+    ViewData["Title"] = "Index page";
+}
+
+<div class="container">
+    <br />
+    <form method="get">
+        <div class="input-group">
+            <input class="form-control" asp-for="Search" />
+            <div class="input-group-append">
+                <button type="submit" class=" btn btn-primary">Search</button>
+            </div>
+        </div>
+        <span asp-validation-for="Search" class="text-danger"></span>
+    </form>
+    <br />
+    <br />
+    <table>
+        <a asp-page="create" class="btn-link">Add company</a>
+        <br>
+        
+    </table>
+    <br>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>
+                    <table class="comapanyNameField">
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            <form asp-page-handler="sortAsc" method="post">
+                                <button id="down-button" type="submit"></button>
+                            </form>
+                        </th>
+                        <th>
+                            <form asp-page-handler="sortDesc" method="post">
+                                <button id="up-button" type="submit"></button>
+                            </form>
+                        </th>
+                    </table></th>
+                <th>H1B Support</th>
+                <th>Job Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var company in Model.Companies)
+            {
+                <tr>
+                    <td>@company.Name</td>
+                    <td>@company.H1BSupport</td>
+                    <td>@company.JobRoleName</td>
+                    <td><a asp-page="Read" asp-route-id="@company.Id" class="btn btn-primary">Read</a> </td>
+                    <td><a asp-page="Update" asp-route-id="@company.Id" class="btn btn-primary">Update</a> </td>
+                    <td><a asp-page="Delete" asp-route-id="@company.Id" class="btn btn-danger">Delete</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
